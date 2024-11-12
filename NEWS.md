@@ -29,3 +29,7 @@
 # smartid 1.1.2
 
 * Update marker selection functions to fix wrong names of marker list.
+
+# smartid 1.3.1
+
+* Update top_markers function to allow batch correction for glm method.
