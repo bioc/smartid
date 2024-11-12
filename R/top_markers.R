@@ -106,6 +106,7 @@ top_markers_abs <- function(data, label, n = 10,
 #' @param data matrix, features in row and samples in column
 #' @param n integer, number of returned top genes for each group
 #' @param family family for glm, details in [stats::glm()]
+#' @param batch a vector of batch labels, default NULL
 #' @param scale logical, if to scale data by row
 #' @param use.mgm logical, if to scale data using [scale_mgm()]
 #' @param softmax logical, if to apply softmax transformation on output
@@ -119,6 +120,7 @@ top_markers_abs <- function(data, label, n = 10,
 #' top_markers_glm(data, label = rep(c("A", "B"), 5))
 top_markers_glm <- function(data, label, n = 10,
                             family = gaussian(), # score are continuous non-negative, can use gamma or inverse.gaussian, if continuous and unbounded use gaussian, if discrete use poisson, if binary or proportions between [0,1] or binary freq counts use binomial
+                            batch = NULL,
                             scale = TRUE, use.mgm = TRUE,
                             pooled.sd = FALSE,
                             # log = TRUE,
@@ -144,8 +146,17 @@ top_markers_glm <- function(data, label, n = 10,
   #   data <- log(data + 1e-8)
   # }
 
-  ## estimate betas based on given group
-  betas <- apply(data, 1, \(s) glm(s ~ 0 + label, family = family)$coef)
+  ## estimate betas based on given group and/or batch label
+  if(is.null(batch)) {
+    ## model with group label only
+    betas <- apply(data, 1, \(s) glm(s ~ 0 + label, family = family)$coef)
+  } else {
+    ## model with both group and batch label
+    betas <- apply(data, 1, \(s) glm(s ~ 0 + label + batch, family = family)$coef)
+    ## only extract betas of group label
+    betas <- betas[grep("^label", rownames(betas)), , drop = FALSE]
+  }
+
   rownames(betas) <- gsub("label", "", rownames(betas))
 
   # ## compute logFC (1 vs all mean) for each group

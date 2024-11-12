@@ -9,6 +9,7 @@ top_markers_glm(
   label,
   n = 10,
   family = gaussian(),
+  batch = NULL,
   scale = TRUE,
   use.mgm = TRUE,
   pooled.sd = FALSE,
@@ -24,6 +25,8 @@ top_markers_glm(
 \item{n}{integer, number of returned top genes for each group}
 
 \item{family}{family for glm, details in \code{\link[stats:glm]{stats::glm()}}}
+
+\item{batch}{a vector of batch labels, default NULL}
 
 \item{scale}{logical, if to scale data by row}
 
