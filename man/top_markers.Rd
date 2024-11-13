@@ -11,6 +11,7 @@ top_markers(
   label,
   n = 10,
   use.glm = TRUE,
+  batch = NULL,
   scale = TRUE,
   use.mgm = TRUE,
   softmax = TRUE,
@@ -23,6 +24,7 @@ top_markers(
   label,
   n = 10,
   use.glm = TRUE,
+  batch = NULL,
   scale = TRUE,
   use.mgm = TRUE,
   softmax = TRUE,
@@ -35,6 +37,7 @@ top_markers(
   label,
   n = 10,
   use.glm = TRUE,
+  batch = NULL,
   scale = TRUE,
   use.mgm = TRUE,
   softmax = TRUE,
@@ -51,6 +54,8 @@ top_markers(
 
 \item{use.glm}{logical, if to use \code{\link[stats:glm]{stats::glm()}} to compute group mean score,
 if TRUE, also compute mean score difference as output}
+
+\item{batch}{a vector of batch labels, default NULL}
 
 \item{scale}{logical, if to scale data by row}
 

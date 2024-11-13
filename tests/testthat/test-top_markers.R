@@ -2,10 +2,11 @@ test_that("top markers works", {
   ## sim data
   expr <- matrix(rgamma(100, 2), 10, dimnames = list(1:10))
   label <- rep(c("A", "B"), 5)
+  batch <- sample(seq_len(2), 10, replace = TRUE)
 
   se <- SummarizedExperiment::SummarizedExperiment(
     assays = list(counts = expr),
-    colData = data.frame(group = label)
+    colData = data.frame(group = label, batch = batch)
   )
 
   ## test matrix
@@ -46,6 +47,16 @@ test_that("top markers works", {
   res <- top_markers(
     data = se,
     label = "group",
+    n = 3,
+    slot = "counts"
+  )
+  expect_s3_class(res, "data.frame")
+
+  ## test batch
+  res <- top_markers(
+    data = se,
+    label = "group",
+    batch = "batch",
     n = 3,
     slot = "counts"
   )

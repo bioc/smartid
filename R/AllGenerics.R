@@ -73,6 +73,7 @@ setGeneric(
            label,
            n = 10,
            use.glm = TRUE,
+           batch = NULL,
            scale = TRUE,
            use.mgm = TRUE,
            softmax = TRUE,

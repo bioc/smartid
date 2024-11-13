@@ -14,6 +14,7 @@
 #' top_markers_init(data, label = rep(c("A", "B"), 5))
 top_markers_init <- function(data, label, n = 10,
                              use.glm = TRUE,
+                             batch = NULL,
                              scale = TRUE,
                              use.mgm = TRUE,
                              softmax = TRUE,
@@ -22,6 +23,7 @@ top_markers_init <- function(data, label, n = 10,
     data <- top_markers_glm(
       data = data,
       label = label,
+      batch = batch,
       n = n,
       scale = scale,
       use.mgm = use.mgm,
@@ -151,6 +153,8 @@ top_markers_glm <- function(data, label, n = 10,
     ## model with group label only
     betas <- apply(data, 1, \(s) glm(s ~ 0 + label, family = family)$coef)
   } else {
+    ## factorize batch label
+    batch <- factor(batch)
     ## model with both group and batch label
     betas <- apply(data, 1, \(s) glm(s ~ 0 + label + batch, family = family)$coef)
     ## only extract betas of group label
