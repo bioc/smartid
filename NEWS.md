@@ -33,3 +33,7 @@
 # smartid 1.3.1
 
 * Update top_markers function to allow batch correction for glm method.
+
+# smartid 1.3.2
+
+* Update batch param in top_markers function.
