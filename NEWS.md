@@ -37,3 +37,7 @@
 # smartid 1.3.2
 
 * Update batch param in top_markers function.
+
+# smartid 1.6.1
+
+* Add bioRxiv citation.
